@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Examples of #</title>
+
+    <script type="application/javascript" src="../hash.js"></script>
+    <script type="application/javascript" src="../html/element.js"></script>
+
+    <script>
+
+        function run() {
+            var html = hs('div');
+
+            html.append(hs('span').attr('id', 'test'));
+            html.prepend(hs('b').attr('id', 'bold'));
+
+            html.addClass('hash-main test aaa');
+            html.removeClass('aaa');
+            html.attr('style', "width: 200px; height: 200px; background: red;");
+
+            html.bind("click", function () {
+                console.log('1');
+            });
+
+
+            document.getElementById("text").value = html.html();
+            document.getElementById("test").innerHTML = html.html();
+        }
+
+    </script>
+
+</head>
+<body onload="run();">
+    <textarea style="width: 100%; height: 200px" id="text"></textarea>
+    <div id="test" />
+</body>
+</html>
