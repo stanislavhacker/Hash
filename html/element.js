@@ -29,13 +29,43 @@
 
         for (key in attributes) {
             if (attributes.hasOwnProperty(key)) {
-                if (key === 'class') {
-                    html += ' ' + key + '="' + attributes[key].join(' ') + '"';
-                } else {
-                    html += ' ' + key + '="' + attributes[key] + '"';
+                switch (key) {
+                    case 'class':
+                        html += ' ' + key + '="' + attributes[key].join(' ') + '"';
+                        break;
+                    case 'style':
+                        if (typeof attributes[key] === "string") {
+                            html += ' ' + key + '="' + attributes[key] + '"';
+                        } else {
+                            html += getCssHtml(attributes[key]);
+                        }
+                        break;
+                    default:
+                        html += ' ' + key + '="' + attributes[key] + '"';
+                        break;
                 }
             }
         }
+
+        return html;
+    }
+
+    /**
+     * Get html for css
+     * @param {object} styles
+     * @returns {string}
+     */
+    function getCssHtml(styles) {
+        var key,
+            html = ' style="';
+
+        for (key in styles) {
+            if (styles.hasOwnProperty(key)) {
+                html += key + ": " + styles[key] + "; ";
+            }
+        }
+
+        html += '"';
 
         return html;
     }
@@ -87,6 +117,21 @@
     }
 
     /**
+     * Clear events storage
+     * @param {object} events
+     * @param {string} event
+     */
+    function clearEventStorage(events, event) {
+        var ev = event.split('.');
+
+        if (ev.length > 1) {
+            delete events[ev[0]][ev[1]];
+        } else {
+            delete events[ev[0]];
+        }
+    }
+
+    /**
      * Get events html
      * @param {{}} storage
      * @param {string} id
@@ -131,6 +176,9 @@
         this.id = hs.getUniqueId();
         /** @type {Object}*/
         this.storage = hs.storage(this.id);
+
+        /** @type {boolean}*/
+        this.isUpdatable = false;
     };
 
     /**
@@ -138,12 +186,24 @@
      * @returns {string}
      */
     hs.Element.prototype.html = function () {
+        this.updatable();
+
         var innerHtml = getInnerHtml(this.children),
             attr = getAttributesHtml(this.attributes),
             events = getEventsHtml(this.storage, this.id);
 
         return '<' + this.element + attr + events + '>' + innerHtml + '</' + this.element + '>';
     };
+
+    /**
+     * Render into element
+     * @param {string} id
+     */
+    hs.Element.prototype.render = function (id) {
+        document.getElementById(id).innerHTML = this.html();
+    };
+
+    //DOM OPERATION
 
     /**
      * Append html element
@@ -165,10 +225,12 @@
         return this;
     };
 
+    //ATTR
+
     /**
      * Ger or set attribute
      * @param {string} attr
-     * @param {string} value
+     * @param {string=} value
      * @returns {string|hs.Element}
      */
     hs.Element.prototype.attr = function (attr, value) {
@@ -183,6 +245,8 @@
         }
         return this;
     };
+
+    //CLASS OPERATION
 
     /**
      * Add class name
@@ -228,6 +292,73 @@
         return this;
     };
 
+    //CSS
+
+    /**
+     *
+     * @param {object|string} cssOrObject
+     * @param {string=} value
+     * @returns {hs.Element|string}
+     */
+    hs.Element.prototype.css = function (cssOrObject, value) {
+        var css = this.attributes['style'] || {},
+            key;
+
+        //update css
+        if (typeof cssOrObject === "object") {
+            for (key in cssOrObject) {
+                if (cssOrObject.hasOwnProperty(key)) {
+                    css[key] = cssOrObject[key];
+                }
+            }
+        }
+
+        if (typeof cssOrObject === "string") {
+            //save css
+            if (value) {
+                css[cssOrObject] = value;
+            //get css
+            } else {
+                return css[cssOrObject];
+            }
+        }
+        this.attributes['style'] = css;
+        return this;
+    };
+
+    //UPDATE
+
+    /**
+     * @private
+     * Mark element as updatable
+     */
+    hs.Element.prototype.updatable = function () {
+        this.isUpdatable = true;
+        if (!this.attr('id')) {
+            this.attr('id', hs.getUniqueId());
+        }
+    };
+
+    /**
+     * Update self in dom
+     */
+    hs.Element.prototype.update = function () {
+        var self = document.getElementById(this.attr('id')),
+            newNode,
+            parent;
+
+        if (this.isUpdatable && self) {
+            parent = self.parentNode;
+
+            newNode = document.createElement('div');
+            newNode.innerHTML = this.html();
+
+            parent.replaceChild(newNode.childNodes[0], self);
+        }
+    };
+
+    //EVENTS
+
     /**
      * Bind event
      * @param {string} event
@@ -237,6 +368,17 @@
     hs.Element.prototype.bind = function (event, callback) {
         var storage = getEventStorage(this.storage, event);
         storage.push(callback);
+        return this;
+    };
+
+    /**
+     *Unbind event
+     * @param {string} event
+     * @returns {hs.Element}
+     */
+    hs.Element.prototype.unbind = function (event) {
+        clearEventStorage(this.storage, event);
+        this.update();
         return this;
     };
 }());

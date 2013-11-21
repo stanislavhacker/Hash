@@ -9,10 +9,18 @@
     <script>
 
         function run() {
-            var html = hs('div');
+            var html = hs('div'),
+                span = hs('span').attr('title', 'hello'),
+                bold = hs('b').attr('id', 'bold');
 
-            html.append(hs('span').attr('id', 'test'));
-            html.prepend(hs('b').attr('id', 'bold'));
+            span.css({
+                width: "100px",
+                height: "20px",
+                display: "block"
+            });
+
+            html.append(span);
+            html.prepend(bold);
 
             html.addClass('hash-main test aaa');
             html.removeClass('aaa');
@@ -27,7 +35,13 @@
 
 
             document.getElementById("text").value = html.html();
-            document.getElementById("test").innerHTML = html.html();
+            html.render('test');
+
+            span.addClass('added_after');
+            span.update();
+
+            html.unbind("click");
+
         }
 
     </script>
