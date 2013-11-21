@@ -1,5 +1,6 @@
 /*global hs*/
-(function() {
+(function () {
+    "use strict";
 
     /**
      * Get inner html
@@ -92,14 +93,19 @@
      * @returns {string}
      */
     function getEventsHtml(storage, id) {
-        var i,
-            key,
+        var key,
+            exists = false,
             html = "";
 
         for (key in storage) {
             if (storage.hasOwnProperty(key)) {
-                html += ' on' + key + '="hs.trigger(\'' + id + '\', \'' + key + '\');"';
+                html += ' on' + key + '="hs.trigger(event);"';
+                exists = true;
             }
+        }
+
+        if (exists) {
+            html += ' data-id="' + id + '"';
         }
 
         return html;

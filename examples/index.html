@@ -21,6 +21,9 @@
             html.bind("click", function () {
                 console.log('1');
             });
+            html.bind("mousemove", function () {
+                console.log('2');
+            });
 
 
             document.getElementById("text").value = html.html();

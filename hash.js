@@ -37,11 +37,12 @@ var hs;
 
     /**
      * Trigger events
-     * @param {string} uid
-     * @param {string} type
+     * @param {Event} event
      */
-    hs.trigger = function (uid, type) {
-        var storage = hs.storage(uid),
+    hs.trigger = function (event) {
+        var uid = event.target.getAttribute('data-id'),
+            storage = hs.storage(uid),
+            type = event.type,
             namespace,
             events,
             i;
