@@ -110,10 +110,9 @@
         if (ev.length > 1) {
             events[ev[0]][ev[1]] = events[ev[0]][ev[1]] || [];
             return events[ev[0]][ev[1]];
-        } else {
-            events[ev[0]]['_'] = events[ev[0]]['_'] || [];
-            return events[ev[0]]['_'];
         }
+        events[ev[0]]['_'] = events[ev[0]]['_'] || [];
+        return events[ev[0]]['_'];
     }
 
     /**
@@ -156,6 +155,36 @@
         return html;
     }
 
+    /**
+     * Mark element as updatable
+     * @param {hs.Element} element
+     */
+    function markAsUpdatable(element) {
+        element.isUpdatable = true;
+        if (!element.attr('id')) {
+            element.attr('id', hs.getUniqueId());
+        }
+    }
+
+    /**
+     * Update self in dom
+     * @param {hs.Element} element
+     */
+    function updateElement(element) {
+        var self = document.getElementById(element.attr('id')),
+            newNode,
+            parent;
+
+        if (element.isUpdatable && self) {
+            parent = self.parentNode;
+
+            newNode = document.createElement('div');
+            newNode.innerHTML = element.html();
+
+            parent.replaceChild(newNode.childNodes[0], self);
+        }
+    }
+
 
 
 
@@ -186,7 +215,7 @@
      * @returns {string}
      */
     hs.Element.prototype.html = function () {
-        this.updatable();
+        markAsUpdatable(this);
 
         var innerHtml = getInnerHtml(this.children),
             attr = getAttributesHtml(this.attributes),
@@ -200,6 +229,7 @@
      * @param {string} id
      */
     hs.Element.prototype.render = function (id) {
+        markAsUpdatable(this);
         document.getElementById(id).innerHTML = this.html();
     };
 
@@ -212,6 +242,7 @@
      */
     hs.Element.prototype.append = function (element) {
         this.children.push(element);
+        updateElement(this);
         return this;
     };
 
@@ -222,6 +253,7 @@
      */
     hs.Element.prototype.prepend = function (element) {
         this.children.unshift(element);
+        updateElement(this);
         return this;
     };
 
@@ -243,6 +275,7 @@
         } else {
             this.attributes[attr] = value;
         }
+        updateElement(this);
         return this;
     };
 
@@ -255,6 +288,7 @@
      */
     hs.Element.prototype.addClass = function (value) {
         manageClassesInElement(this.attributes, value, true);
+        updateElement(this);
         return this;
     };
 
@@ -265,6 +299,7 @@
      */
     hs.Element.prototype.removeClass = function (value) {
         manageClassesInElement(this.attributes, value, false);
+        updateElement(this);
         return this;
     };
 
@@ -289,6 +324,7 @@
         } else {
             manageClassesInElement(this.attributes, value, true);
         }
+        updateElement(this);
         return this;
     };
 
@@ -323,38 +359,8 @@
             }
         }
         this.attributes['style'] = css;
+        updateElement(this);
         return this;
-    };
-
-    //UPDATE
-
-    /**
-     * @private
-     * Mark element as updatable
-     */
-    hs.Element.prototype.updatable = function () {
-        this.isUpdatable = true;
-        if (!this.attr('id')) {
-            this.attr('id', hs.getUniqueId());
-        }
-    };
-
-    /**
-     * Update self in dom
-     */
-    hs.Element.prototype.update = function () {
-        var self = document.getElementById(this.attr('id')),
-            newNode,
-            parent;
-
-        if (this.isUpdatable && self) {
-            parent = self.parentNode;
-
-            newNode = document.createElement('div');
-            newNode.innerHTML = this.html();
-
-            parent.replaceChild(newNode.childNodes[0], self);
-        }
     };
 
     //EVENTS
@@ -368,6 +374,7 @@
     hs.Element.prototype.bind = function (event, callback) {
         var storage = getEventStorage(this.storage, event);
         storage.push(callback);
+        updateElement(this);
         return this;
     };
 
@@ -378,7 +385,7 @@
      */
     hs.Element.prototype.unbind = function (event) {
         clearEventStorage(this.storage, event);
-        this.update();
+        updateElement(this);
         return this;
     };
 }());

@@ -51,7 +51,7 @@ var hs;
         for (namespace in events) {
             if (events.hasOwnProperty(namespace)) {
                 for (i = 0; i < events[namespace].length; i++) {
-                    events[namespace][i]();
+                    events[namespace][i](event);
                 }
             }
         }

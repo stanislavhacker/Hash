@@ -1,54 +1,215 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
 <head>
-    <title>Examples of #</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example page for usage # framework</title>
 
+    <!-- # Framework -->
     <script type="application/javascript" src="../hash.js"></script>
     <script type="application/javascript" src="../html/element.js"></script>
 
+    <!-- Js Highlighter -->
+    <link rel="stylesheet" href="data/highlighter/styles/github.css">
+    <script src="data/highlighter/highlight.pack.js"></script>
+
+    <!-- Examples -->
+    <script src="functions/simpleUsage.js"></script>
+
     <script>
-
-        function run() {
-            var html = hs('div'),
-                span = hs('span').attr('title', 'hello'),
-                bold = hs('b').attr('id', 'bold');
-
-            span.css({
-                width: "100px",
-                height: "20px",
-                display: "block"
-            });
-
-            html.append(span);
-            html.prepend(bold);
-
-            html.addClass('hash-main test aaa');
-            html.removeClass('aaa');
-            html.attr('style', "width: 200px; height: 200px; background: red;");
-
-            html.bind("click", function () {
-                console.log('1');
-            });
-            html.bind("mousemove", function () {
-                console.log('2');
-            });
-
-
-            document.getElementById("text").value = html.html();
-            html.render('test');
-
-            span.addClass('added_after');
-            span.update();
-
-            html.unbind("click");
-
+        function loadAll() {
+            example1();
+            example2();
+            example3();
+            example4();
         }
-
     </script>
 
+    <link rel="stylesheet" href="data/css.css" />
 </head>
-<body onload="run();">
-    <textarea style="width: 100%; height: 200px" id="text"></textarea>
-    <div id="test" />
+<body onload="loadAll();">
+
+
+<!-- Nav Bar -->
+<div class="row">
+    <div class="large-12 columns">
+        <div class="nav-bar right">
+            <ul class="button-group">
+                <li><a href="#simpleUsage" class="button">Simple usage</a></li>
+            </ul>
+        </div>
+        <h1># <small>Performance on first way</small></h1>
+        <hr />
+    </div>
+</div>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+
+        <article>
+
+            <h3><a name="simpleUsage" href="#">Simple usage</a></h3>
+
+        </article>
+
+        <hr />
+
+        <article>
+
+            <h5><a name="example1" href="#">Create base element</a></h5>
+            <div>
+                <p>
+                    It's not like jQuery creation with <span class="code">$('&lt;div /&gt;')</span>, but you can only specified the name of element.
+                    After element create, you can render his html into element with id <span class="code">'some_id'</span>.
+                </p>
+
+                <h6>JavaScript code</h6>
+                <pre><code id="example1_code">
+var html = hs('div');
+
+html.render('some_id');
+                </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example1_html"></code></pre>
+            </div>
+
+        </article>
+
+        <hr />
+
+        <article>
+
+            <h5><a name="example2" href="#">Create element with attributes</a></h5>
+            <div>
+                <p>
+                    This functionality is same as a jQuery attr. If you specified two parameters, you can set attribute in element. If you specified
+                    only one parameter, you get his value.
+                </p>
+
+                <h6>JavaScript code</h6>
+                    <pre><code id="example2_code">
+var html = hs('span');
+
+html.attr('title', "Hi!");
+html.attr('id', "hi_span");
+html.attr('data-name', "hello");
+
+html.render('some_id');
+                    </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example2_html"></code></pre>
+            </div>
+
+        </article>
+
+        <hr />
+
+        <article>
+
+            <h5><a name="example3" href="#">Class operations</a></h5>
+            <div>
+                <p>
+                    This is same as a jQuery class operations <span class="code">addClass</span>, <span class="code">toggleClass</span> and
+                    <span class="code">removeClass</span>.
+                </p>
+
+                <h6>JavaScript code</h6>
+                    <pre><code id="example3_code">
+                        var html = hs('div');
+
+                        html.addClass('test');
+                        html.addClass('test');
+                        html.toggleClass('id');
+                        html.toggleClass('remove');
+                        html.removeClass('remove');
+
+                        html.render('some_id');
+                    </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example3_html"></code></pre>
+            </div>
+
+        </article>
+
+        <hr />
+
+        <article>
+
+            <h5><a name="example4" href="#">Events bind and unbind</a></h5>
+            <div>
+                <p>
+                    You can use methods <span class="code">bind</span> and <span class="code">unbind</span> like in jQuery. This
+                    events are stored in global storage and because this framework generate pure html, it must be done through events
+                    binding in html.
+                </p>
+
+                <h6>JavaScript code</h6>
+                    <pre><code id="example4_code">
+var html = hs('div');
+
+html.bind("click", function (event) {
+    ...
+});
+html.unbind("mousedown");
+                    </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example4_html"></code></pre>
+            </div>
+
+        </article>
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+
+        <h5>All examples</h5>
+        <ul class="side-nav">
+            <li><a href="#example1">Create base element</a></li>
+            <li><a href="#example2">Create element with attributes</a></li>
+            <li><a href="#example3">Class operations</a></li>
+            <li><a href="#example4">Events bind and unbind</a></li>
+        </ul>
+
+        <div class="panel">
+            <h5>Featured</h5>
+            <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow.</p>
+            <a href="#">Read More &rarr;</a>
+        </div>
+
+    </aside>
+    <!-- End Sidebar -->
+
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>&copy; Stanislav Hacker 2013 | <a href="mailto:hacker.stanislav@gmail.com">hacker.stanislav@gmail.com</a></p>
+            </div>
+            <div class="large-6 columns">
+                <ul class="inline-list right">
+                    <li><a href="#simpleUsage">Simple usage</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>
