@@ -4590,3 +4590,7 @@ pre {
     white-space: pre-wrap;
     word-wrap: break-word;
 }
+
+.gray {
+    background: lightgray;
+}

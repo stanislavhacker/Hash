@@ -5,14 +5,19 @@
     /**
      * Get inner html
      * @param {Array.<hs.Element>} children
+     * @param {Boolean} isUpdatable
      * @returns {string}
      */
-    function getInnerHtml(children) {
+    function getInnerHtml(children, isUpdatable) {
         var i,
             innerHtml = "";
 
         for (i = 0; i < children.length; i++) {
-            innerHtml += children[i].html();
+            if (typeof children[i] === "string") {
+                innerHtml += children[i];
+            } else {
+                innerHtml += children[i].html(isUpdatable);
+            }
         }
 
         return innerHtml;
@@ -57,11 +62,17 @@
      */
     function getCssHtml(styles) {
         var key,
+            first = true,
             html = ' style="';
 
         for (key in styles) {
             if (styles.hasOwnProperty(key)) {
-                html += key + ": " + styles[key] + "; ";
+                if (first) {
+                    html += key + ": " + styles[key] + ";";
+                    first = false;
+                } else {
+                    html += " " + key + ": " + styles[key] + ";";
+                }
             }
         }
 
@@ -166,6 +177,8 @@
         }
     }
 
+    //UPDATE
+
     /**
      * Update self in dom
      * @param {hs.Element} element
@@ -185,7 +198,17 @@
         }
     }
 
+    /**
+     * Update self class in dom
+     * @param {hs.Element} element
+     */
+    function updateElementClass(element) {
+        var self = document.getElementById(element.attr('id'));
 
+        if (element.isUpdatable && self) {
+            self.className = element.attributes['class'];
+        }
+    }
 
 
     /**
@@ -214,10 +237,12 @@
      * Get html
      * @returns {string}
      */
-    hs.Element.prototype.html = function () {
-        markAsUpdatable(this);
+    hs.Element.prototype.html = function (isUpdatable) {
+        if (isUpdatable) {
+            markAsUpdatable(this);
+        }
 
-        var innerHtml = getInnerHtml(this.children),
+        var innerHtml = getInnerHtml(this.children, isUpdatable),
             attr = getAttributesHtml(this.attributes),
             events = getEventsHtml(this.storage, this.id);
 
@@ -229,8 +254,7 @@
      * @param {string} id
      */
     hs.Element.prototype.render = function (id) {
-        markAsUpdatable(this);
-        document.getElementById(id).innerHTML = this.html();
+        document.getElementById(id).innerHTML = this.html(true);
     };
 
     //DOM OPERATION
@@ -279,6 +303,25 @@
         return this;
     };
 
+    //TEXT
+
+    /**
+     * Add text
+     * @param {string} text
+     */
+    hs.Element.prototype.addText = function (text) {
+        this.children.push(text);
+    };
+
+    /**
+     * Remove text
+     * @param {string} text
+     */
+    hs.Element.prototype.removeText = function (text) {
+        var index = this.children.indexOf(text);
+        this.children.splice(index, 1);
+    };
+
     //CLASS OPERATION
 
     /**
@@ -288,7 +331,7 @@
      */
     hs.Element.prototype.addClass = function (value) {
         manageClassesInElement(this.attributes, value, true);
-        updateElement(this);
+        updateElementClass(this);
         return this;
     };
 
@@ -299,7 +342,7 @@
      */
     hs.Element.prototype.removeClass = function (value) {
         manageClassesInElement(this.attributes, value, false);
-        updateElement(this);
+        updateElementClass(this);
         return this;
     };
 
@@ -309,6 +352,9 @@
      * @returns {boolean}
      */
     hs.Element.prototype.hasClass = function (value) {
+        if (!this.attributes['class']) {
+            return false;
+        }
         return this.attributes['class'].indexOf(value) > -1;
     };
 
@@ -324,7 +370,7 @@
         } else {
             manageClassesInElement(this.attributes, value, true);
         }
-        updateElement(this);
+        updateElementClass(this);
         return this;
     };
 

@@ -22,6 +22,13 @@
             example2();
             example3();
             example4();
+            example5();
+            example6();
+            example7();
+            example71();
+            example8();
+
+            test1();
         }
     </script>
 
@@ -36,6 +43,7 @@
         <div class="nav-bar right">
             <ul class="button-group">
                 <li><a href="#simpleUsage" class="button">Simple usage</a></li>
+                <li><a href="#complexUsage" class="button">Complex usage</a></li>
             </ul>
         </div>
         <h1># <small>Performance on first way</small></h1>
@@ -54,6 +62,12 @@
         <article>
 
             <h3><a name="simpleUsage" href="#">Simple usage</a></h3>
+
+            <p>
+                This framework is intended for generation of HTML string in case of speed up for really fast
+                application for which Jquery is slow. This framework is not intended for update html, that is already
+                generated, but it is possible.
+            </p>
 
         </article>
 
@@ -148,7 +162,7 @@ html.render('some_id');
                 <p>
                     You can use methods <span class="code">bind</span> and <span class="code">unbind</span> like in jQuery. This
                     events are stored in global storage and because this framework generate pure html, it must be done through events
-                    binding in html.
+                    binding in html. The <span class="code">'data-id'</span> element is use for searching right event.
                 </p>
 
                 <h6>JavaScript code</h6>
@@ -167,6 +181,142 @@ html.unbind("mousedown");
 
         </article>
 
+        <hr />
+
+        <article>
+
+            <h5><a name="example5" href="#">CSS operation</a></h5>
+            <div>
+                <p>
+                    CSS function is only simple. You must use exactly name of css attribute, not like in jQuery. This
+                    function not doing special optimization for old browser (in opacity as example).
+                </p>
+
+                <h6>JavaScript code</h6>
+                    <pre><code id="example5_code">
+var html = hs('div');
+
+html.css({
+    width: '100px',
+    height: '100px',
+    float: 'left'
+});
+                    </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example5_html"></code></pre>
+            </div>
+
+        </article>
+
+        <hr />
+
+        <article>
+
+            <h5><a name="example6" href="#">Text operation</a></h5>
+            <div>
+                <p>
+                    Adding and removing text is simple. You can use methods <span class="code">addText</span> and
+                    <span class="code">removeText</span>.
+                </p>
+
+                <h6>JavaScript code</h6>
+                    <pre><code id="example6_code">
+var html = hs('div');
+
+html.addText('Hello text');
+                    </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example6_html"></code></pre>
+            </div>
+
+        </article>
+
+        <hr />
+
+        <article>
+
+            <h5><a name="example7" href="#">render() vs html()</a></h5>
+            <div>
+                <p>
+                    You can use two methods for final step. You can use <span class="code">render</span> that
+                    is used for render html into element with given id. Render method cause that every element
+                    get unique id. If you choose <span class="code">html</span> method without parameter you
+                    can get raw html without any generated id.
+                </p>
+
+                <h6>JavaScript code</h6>
+                    <pre><code id="example7_code">
+var html = hs('div');
+
+html.html();
+                    </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example7_html"></code></pre>
+
+                <h6>JavaScript code</h6>
+                    <pre><code id="example71_code">
+var html = hs('div');
+
+html.render('test');
+                    </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example71_html"></code></pre>
+            </div>
+
+        </article>
+
+        <br /><br />
+
+        <article>
+
+            <h3><a name="complexUsage" href="#">Complex usage</a></h3>
+
+            <p>
+                You can generate really complex html codes.
+            </p>
+
+        </article>
+
+        <hr />
+
+        <article>
+
+            <h5><a name="example8" href="#">Generation of table</a></h5>
+            <div>
+                <p>
+                    
+                </p>
+
+                <h6>JavaScript code</h6>
+                    <pre><code id="example8_code">
+var html = hs('table'),
+    td,
+    tr,
+    i,
+    j;
+
+for (i = 0; i < 2; i++) {
+    tr = hs('tr');
+    for (j = 0; j < 3; j++) {
+        td = hs('td');
+        tr.append(td);
+    }
+    html.append(tr);
+}
+                    </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example8_html"></code></pre>
+            </div>
+
+        </article>
+
+        <hr />
+
     </div>
     <!-- End Main Content -->
 
@@ -179,12 +329,20 @@ html.unbind("mousedown");
             <li><a href="#example2">Create element with attributes</a></li>
             <li><a href="#example3">Class operations</a></li>
             <li><a href="#example4">Events bind and unbind</a></li>
+            <li><a href="#example5">CSS operation</a></li>
+            <li><a href="#example6">Text operation</a></li>
+            <li><a href="#example7">render() vs html()</a></li>
+            <li><a href="#example8">Generation of table</a></li>
         </ul>
 
         <div class="panel">
-            <h5>Featured</h5>
-            <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow.</p>
-            <a href="#">Read More &rarr;</a>
+            <h5>Test's</h5>
+
+            <h6>Toggle class</h6>
+            <div id="test1"></div>
+            <hr />
+
+            <br />
         </div>
 
     </aside>
@@ -205,6 +363,7 @@ html.unbind("mousedown");
             <div class="large-6 columns">
                 <ul class="inline-list right">
                     <li><a href="#simpleUsage">Simple usage</a></li>
+                    <li><a href="#complexUsage">Complex usage</a></li>
                 </ul>
             </div>
         </div>
