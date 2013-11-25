@@ -57,20 +57,16 @@
         }
     };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     *  Delete row in table
+     * @param {number} index
+     */
+    hs.controls.Table.prototype.deleteRow = function (index) {
+        var trs = this.root.children;
+        if (trs[index]) {
+            trs[index].remove();
+        }
+    };
 
     /**
      *  Get row in table
