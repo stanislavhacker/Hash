@@ -42,6 +42,9 @@
         /** @type {boolean}*/
         this.isUpdatable = false;
 
+        /** @type {hs.Element}*/
+        this.parent = null;
+
         //helpers
         this.classes = new hs.Class(this);
         this.styles = new hs.Css(this);
@@ -119,6 +122,60 @@
          */
         hs.Element.prototype.prepend = function (element) {
             var el = this.dom.prepend(element);
+            updateElement(el);
+            return el;
+        };
+
+
+        /**
+         * Append to element
+         * @param {hs.Element} element
+         * @returns {hs.Element}
+         */
+        hs.Element.prototype.appendTo = function (element) {
+            var el = this.dom.appendTo(element);
+            updateElement(el);
+            return el;
+        };
+
+        /**
+         * Prepend to element
+         * @param {hs.Element} element
+         * @returns {hs.Element}
+         */
+        hs.Element.prototype.prependTo = function (element) {
+            var el = this.dom.prependTo(element);
+            updateElement(el);
+            return el;
+        };
+
+        /**
+         * Empty element
+         * @returns {hs.Element}
+         */
+        hs.Element.prototype.empty = function () {
+            var el = this.dom.empty();
+            updateElement(el);
+            return el;
+        };
+
+        /**
+         * Remove self from parent
+         * @returns {hs.Element}
+         */
+        hs.Element.prototype.remove = function () {
+            var el = this.dom.remove();
+            updateElement(el);
+            return el;
+        };
+
+        /**
+         * Replace element with another element
+         * @param {hs.Element} element
+         * @returns {hs.Element}
+         */
+        hs.Element.prototype.replaceWith = function (element) {
+            var el = this.dom.replaceWith(element);
             updateElement(el);
             return el;
         };
