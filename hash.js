@@ -1,5 +1,6 @@
 var hs;
-(function() {
+(function () {
+    "use strict";
 
     var storage = {};
 
@@ -17,7 +18,7 @@ var hs;
      * @returns {string}
      */
     hs.getUniqueId = function () {
-        var s4 = function() {
+        var s4 = function () {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         };
 
