@@ -6,5 +6,5 @@ fast application for which Jquery is slow. This framework is not intended for up
 that is already generated, but it is possible. 
 
 Examples
-====
+----
 There is simple example page for Hash framework: https://rawgithub.com/stanislavhacker/Hash/master/examples/index.html
