@@ -7,6 +7,7 @@
 
     <!-- # Framework -->
     <script type="application/javascript" src="../hash.js"></script>
+
     <script type="application/javascript" src="../html/css.js"></script>
     <script type="application/javascript" src="../html/class.js"></script>
     <script type="application/javascript" src="../html/events.js"></script>
@@ -15,6 +16,8 @@
     <script type="application/javascript" src="../html/attr.js"></script>
     <script type="application/javascript" src="../html/renderer.js"></script>
     <script type="application/javascript" src="../html/element.js"></script>
+
+    <script type="application/javascript" src="../controls/table.js"></script>
 
 
     <!-- Js Highlighter -->
@@ -35,6 +38,8 @@
             example7();
             example71();
             example8();
+            example9();
+            example10();
 
             test1();
         }
@@ -52,6 +57,7 @@
             <ul class="button-group">
                 <li><a href="#simpleUsage" class="button">Simple usage</a></li>
                 <li><a href="#complexUsage" class="button">Complex usage</a></li>
+                <li><a href="#controls" class="button">Controls</a></li>
             </ul>
         </div>
         <h1># <small>Performance on first way</small></h1>
@@ -245,6 +251,46 @@ html.addText('Hello text');
 
         <article>
 
+            <h5><a name="example10" href="#">DOM operations</a></h5>
+            <div>
+                <p>
+                    DOm operations are similar to JQuery operations. You can use methods like <span class="code">append</span>, <span class="code">prepend</span>
+                    <span class="code">appendTo</span>, <span class="code">prependTo</span>, <span class="code">empty</span>, <span class="code">remove</span> and
+                    <span class="code">replaceWith</span>. All these methods has same behaviour as methods in jQuery.
+                </p>
+
+                <h6>JavaScript code</h6>
+                    <pre><code id="example10_code">
+var html = hs('div'),
+    base = hs('span').addClass('base'),
+    appended = hs('span').addClass('appended'),
+    prepended = hs('span').addClass('prepended'),
+    replaced = hs('span').addClass('replaced');
+
+replaced.append(hs('b'));
+
+html.append(base);
+
+html.append(appended);
+html.prepend(prepended);
+
+base.replaceWith(replaced);
+replaced.empty();
+
+hs('button').addClass('btn2').appendTo(replaced);
+hs('button').addClass('btn1').prependTo(replaced);
+                    </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example10_html"></code></pre>
+            </div>
+
+        </article>
+
+        <hr />
+
+        <article>
+
             <h5><a name="example7" href="#">render() vs html()</a></h5>
             <div>
                 <p>
@@ -323,6 +369,50 @@ for (i = 0; i < 2; i++) {
 
         </article>
 
+        <br /><br />
+
+        <article>
+
+            <h3><a name="controls" href="#">Build-in controls</a></h3>
+
+            <p>
+                You can generate html with build in controls, that make your work simply and fast.
+            </p>
+
+        </article>
+
+        <hr />
+
+        <article>
+
+            <h5><a name="example9" href="#">Table control</a></h5>
+            <div>
+                <p>
+
+                </p>
+
+                <h6>JavaScript code</h6>
+                    <pre><code id="example9_code">
+var table = hs.createTable(1, 0);
+
+table.addColumns(1);
+table.addRows(3);
+
+table.getRow(0).addClass('first');
+table.getCell(0, 1).addClass('secondCell');
+table.getCell(1, 1).addText(table.getRows().length.toString());
+table.getCell(2, 0).addText(table.getRowsCount().toString());
+table.getCell(2, 1).addText(table.getColumnsCount().toString());
+table.addRows(1);
+table.deleteRow(3);
+                    </code></pre>
+
+                <h6>Result html string</h6>
+                <pre><code id="example9_html"></code></pre>
+            </div>
+
+        </article>
+
         <hr />
 
     </div>
@@ -339,8 +429,10 @@ for (i = 0; i < 2; i++) {
             <li><a href="#example4">Events bind and unbind</a></li>
             <li><a href="#example5">CSS operation</a></li>
             <li><a href="#example6">Text operation</a></li>
+            <li><a href="#example10">DOM operations</a></li>
             <li><a href="#example7">render() vs html()</a></li>
             <li><a href="#example8">Generation of table</a></li>
+            <li><a href="#example9">Table control</a></li>
         </ul>
 
         <div class="panel">
@@ -372,6 +464,7 @@ for (i = 0; i < 2; i++) {
                 <ul class="inline-list right">
                     <li><a href="#simpleUsage">Simple usage</a></li>
                     <li><a href="#complexUsage">Complex usage</a></li>
+                    <li><a href="#controls">Controls</a></li>
                 </ul>
             </div>
         </div>

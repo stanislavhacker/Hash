@@ -58,5 +58,22 @@ var hs;
         }
     };
 
+    /**
+     * Controls helpers
+     */
+    (function () {
+
+        /**
+         * Create table
+         * @param {number} columns
+         * @param {number} rows
+         * @returns {hs.controls.Table}
+         */
+        hs.createTable = function (columns, rows) {
+            return new hs.controls.Table(columns, rows);
+        };
+
+    }());
+
 
 }());

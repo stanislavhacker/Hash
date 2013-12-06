@@ -122,3 +122,45 @@ function example8() {
 
     render(8, html);
 }
+
+function example9() {
+    "use strict";
+    var table = hs.createTable(1, 0);
+
+    table.addColumns(1);
+    table.addRows(3);
+
+    table.getRow(0).addClass('first');
+    table.getCell(0, 1).addClass('secondCell');
+    table.getCell(1, 1).addText(table.getRows().length.toString());
+    table.getCell(2, 0).addText(table.getRowsCount().toString());
+    table.getCell(2, 1).addText(table.getColumnsCount().toString());
+    table.addRows(1);
+    table.deleteRow(3);
+
+    render(9, table);
+}
+
+function example10() {
+    "use strict";
+    var html = hs('div'),
+        base = hs('span').addClass('base'),
+        appended = hs('span').addClass('appended'),
+        prepended = hs('span').addClass('prepended'),
+        replaced = hs('span').addClass('replaced');
+
+    replaced.append(hs('b'));
+
+    html.append(base);
+
+    html.append(appended);
+    html.prepend(prepended);
+
+    base.replaceWith(replaced);
+    replaced.empty();
+
+    hs('button').addClass('btn2').appendTo(replaced);
+    hs('button').addClass('btn1').prependTo(replaced);
+
+    render(10, html);
+}

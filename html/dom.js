@@ -31,7 +31,7 @@
     hs.Dom.prototype.prepend = function (element) {
         var base = this.element;
         element.parent = base;
-        base.unshift(element);
+        base.children.unshift(element);
         return base;
     };
 
@@ -80,7 +80,7 @@
             index;
 
         if (parent) {
-            index = parent.children.indexOf(this);
+            index = parent.children.indexOf(this.element);
             if (index > -1) {
                 parent.children.splice(index, 1);
                 base.parent = null;
@@ -101,7 +101,7 @@
             index;
 
         if (parent) {
-            index = parent.children.indexOf(this);
+            index = parent.children.indexOf(this.element);
             if (index > -1) {
                 parent.children.splice(index, 1, element);
                 base.parent = null;
