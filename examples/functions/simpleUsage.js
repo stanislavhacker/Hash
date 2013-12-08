@@ -1,166 +1,126 @@
-/*global hs, document, hljs*/
-function render(i, test, updatable) {
-    var code = document.getElementById('example' + i + '_code'),
-        html = document.getElementById('example' + i + '_html'),
-        textNode;
-
-    textNode = document.createTextNode(test.html(updatable));
-    html.appendChild(textNode);
-    hljs.highlightBlock(code);
-    hljs.highlightBlock(html);
-}
-
-function example1() {
+/*global hs, document, hljs, examples*/
+(function () {
     "use strict";
 
-    var html = hs('div');
-    render(1, html);
-}
+    /**
+     * Examples
+     * @constructor
+     */
+    examples.SimpleUsage = function () {};
 
-function example2() {
-    "use strict";
-    var html = hs('span');
+    /**
+     * Examples 1
+     */
+    examples.SimpleUsage.prototype.createBaseElement = function() {
+        var html = hs('div');
+        examples.render(1, html);
+    };
 
-    html.attr('title', "Hi!");
-    html.attr('id', "hi_span");
-    html.attr('data-name', "hello");
+    /**
+     * Examples 2
+     */
+    examples.SimpleUsage.prototype.createElementWithAttributes = function() {
+        var html = hs('span');
 
-    render(2, html);
-}
+        html.attr('title', "Hi!");
+        html.attr('id', "hi_span");
+        html.attr('data-name', "hello");
 
-function example3() {
-    "use strict";
-    var html = hs('div');
+        examples.render(2, html);
+    };
 
-    html.addClass('test');
-    html.addClass('test');
-    html.toggleClass('id');
-    html.toggleClass('remove');
-    html.removeClass('remove');
+    /**
+     * Examples 3
+     */
+    examples.SimpleUsage.prototype.classOperations = function() {
+        var html = hs('div');
 
-    render(3, html);
-}
+        html.addClass('test');
+        html.addClass('test');
+        html.toggleClass('id');
+        html.toggleClass('remove');
+        html.removeClass('remove');
 
-function example4() {
-    "use strict";
-    var html = hs('div');
+        examples.render(3, html);
+    };
 
-    html.bind("click", function (event) {});
-    html.unbind("mousedown");
+    /**
+     * Examples 4
+     */
+    examples.SimpleUsage.prototype.eventsBindAndUnbind = function() {
+        var html = hs('div');
 
-    render(4, html);
-}
+        html.bind("click", function (event) {});
+        html.unbind("mousedown");
 
-function example5() {
-    "use strict";
-    var html = hs('div');
+        examples.render(4, html);
+    };
 
-    html.css({
-        width: '100px',
-        height: '100px',
-        float: 'left'
-    });
+    /**
+     * Examples 5
+     */
+    examples.SimpleUsage.prototype.cssOperation = function() {
+        var html = hs('div');
 
-    render(5, html);
-}
+        html.css({
+            width: '100px',
+            height: '100px',
+            float: 'left'
+        });
 
-function example6() {
-    "use strict";
-    var html = hs('div');
+        examples.render(5, html);
+    };
 
-    html.addText('Hello text');
+    /**
+     * Examples 6
+     */
+    examples.SimpleUsage.prototype.textOperation = function() {
+        var html = hs('div');
+        html.addText('Hello text');
 
-    render(6, html);
-}
+        examples.render(6, html);
+    };
 
-function example7() {
-    "use strict";
-    var html = hs('div');
+    /**
+     * Examples 7
+     */
+    examples.SimpleUsage.prototype.functionHtml = function() {
+        var html = hs('div');
+        examples.render(7, html);
+    };
 
-    render(7, html);
-}
+    /**
+     * Examples 7.1
+     */
+    examples.SimpleUsage.prototype.functionRender = function() {
+        var html = hs('div');
+        examples.render(71, html, true);
+    };
 
-function example71() {
-    "use strict";
-    var html = hs('div');
+    /**
+     * Examples 10
+     */
+    examples.SimpleUsage.prototype.domOperations = function() {
+        var html = hs('div'),
+            base = hs('span').addClass('base'),
+            appended = hs('span').addClass('appended'),
+            prepended = hs('span').addClass('prepended'),
+            replaced = hs('span').addClass('replaced');
 
-    render(71, html, true);
-}
+        replaced.append(hs('b'));
 
-function test1() {
-    "use strict";
-    var html = hs('div');
+        html.append(base);
 
-    html.css({
-        padding: '5px',
-        border: '1px solid gray'
-    });
-    html.addText('Click on me!');
-    html.render('test1');
+        html.append(appended);
+        html.prepend(prepended);
 
-    html.bind("click", function () {
-         html.toggleClass('gray');
-    });
-}
+        base.replaceWith(replaced);
+        replaced.empty();
 
-function example8() {
-    "use strict";
-    var html = hs('table'),
-        td,
-        tr,
-        i,
-        j;
+        hs('button').addClass('btn2').appendTo(replaced);
+        hs('button').addClass('btn1').prependTo(replaced);
 
-    for (i = 0; i < 2; i++) {
-        tr = hs('tr');
-        for (j = 0; j < 3; j++) {
-            td = hs('td');
-            tr.append(td);
-        }
-        html.append(tr);
-    }
+        examples.render(10, html);
+    };
 
-    render(8, html);
-}
-
-function example9() {
-    "use strict";
-    var table = hs.createTable(1, 0);
-
-    table.addColumns(1);
-    table.addRows(3);
-
-    table.getRow(0).addClass('first');
-    table.getCell(0, 1).addClass('secondCell');
-    table.getCell(1, 1).addText(table.getRows().length.toString());
-    table.getCell(2, 0).addText(table.getRowsCount().toString());
-    table.getCell(2, 1).addText(table.getColumnsCount().toString());
-    table.addRows(1);
-    table.deleteRow(3);
-
-    render(9, table);
-}
-
-function example10() {
-    "use strict";
-    var html = hs('div'),
-        base = hs('span').addClass('base'),
-        appended = hs('span').addClass('appended'),
-        prepended = hs('span').addClass('prepended'),
-        replaced = hs('span').addClass('replaced');
-
-    replaced.append(hs('b'));
-
-    html.append(base);
-
-    html.append(appended);
-    html.prepend(prepended);
-
-    base.replaceWith(replaced);
-    replaced.empty();
-
-    hs('button').addClass('btn2').appendTo(replaced);
-    hs('button').addClass('btn1').prependTo(replaced);
-
-    render(10, html);
-}
+}());
