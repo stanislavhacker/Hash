@@ -11,7 +11,7 @@
     /**
      * Examples 9
      */
-    examples.Controls.prototype.tableControl = function() {
+    examples.Controls.prototype.tableControl = function () {
         var table = hs.createTable(1, 0);
 
         table.addColumns(1);

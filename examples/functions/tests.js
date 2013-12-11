@@ -13,7 +13,7 @@
     /**
      * Test 1
      */
-    examples.Tests.prototype.updateCssClickExample = function() {
+    examples.Tests.prototype.updateCssClickExample = function () {
         var html = hs('div');
 
         html.css({

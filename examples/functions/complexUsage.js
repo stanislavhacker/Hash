@@ -11,7 +11,7 @@
     /**
      * Examples 8
      */
-    examples.ComplexUsage.prototype.generateTable = function() {
+    examples.ComplexUsage.prototype.generateTable = function () {
         var html = hs('table'),
             td,
             tr,

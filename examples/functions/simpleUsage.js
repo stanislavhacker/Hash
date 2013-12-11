@@ -11,7 +11,7 @@
     /**
      * Examples 1
      */
-    examples.SimpleUsage.prototype.createBaseElement = function() {
+    examples.SimpleUsage.prototype.createBaseElement = function () {
         var html = hs('div');
         examples.render(1, html);
     };
@@ -19,7 +19,7 @@
     /**
      * Examples 2
      */
-    examples.SimpleUsage.prototype.createElementWithAttributes = function() {
+    examples.SimpleUsage.prototype.createElementWithAttributes = function () {
         var html = hs('span');
 
         html.attr('title', "Hi!");
@@ -32,7 +32,7 @@
     /**
      * Examples 3
      */
-    examples.SimpleUsage.prototype.classOperations = function() {
+    examples.SimpleUsage.prototype.classOperations = function () {
         var html = hs('div');
 
         html.addClass('test');
@@ -47,7 +47,7 @@
     /**
      * Examples 4
      */
-    examples.SimpleUsage.prototype.eventsBindAndUnbind = function() {
+    examples.SimpleUsage.prototype.eventsBindAndUnbind = function () {
         var html = hs('div');
 
         html.bind("click", function (event) {});
@@ -59,7 +59,7 @@
     /**
      * Examples 5
      */
-    examples.SimpleUsage.prototype.cssOperation = function() {
+    examples.SimpleUsage.prototype.cssOperation = function () {
         var html = hs('div');
 
         html.css({
@@ -74,7 +74,7 @@
     /**
      * Examples 6
      */
-    examples.SimpleUsage.prototype.textOperation = function() {
+    examples.SimpleUsage.prototype.textOperation = function () {
         var html = hs('div');
         html.addText('Hello text');
 
@@ -84,7 +84,7 @@
     /**
      * Examples 7
      */
-    examples.SimpleUsage.prototype.functionHtml = function() {
+    examples.SimpleUsage.prototype.functionHtml = function () {
         var html = hs('div');
         examples.render(7, html);
     };
@@ -92,7 +92,7 @@
     /**
      * Examples 7.1
      */
-    examples.SimpleUsage.prototype.functionRender = function() {
+    examples.SimpleUsage.prototype.functionRender = function () {
         var html = hs('div');
         examples.render(71, html, true);
     };
@@ -100,7 +100,7 @@
     /**
      * Examples 10
      */
-    examples.SimpleUsage.prototype.domOperations = function() {
+    examples.SimpleUsage.prototype.domOperations = function () {
         var html = hs('div'),
             base = hs('span').addClass('base'),
             appended = hs('span').addClass('appended'),

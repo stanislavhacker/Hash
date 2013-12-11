@@ -1,6 +1,7 @@
 /*global hs, document, hljs*/
 var examples = {};
 (function () {
+    "use strict";
 
     /**
      * Render
@@ -8,7 +9,7 @@ var examples = {};
      * @param {hs.Element} test
      * @param {boolean=} updatable
      */
-    examples.render = function(i, test, updatable) {
+    examples.render = function (i, test, updatable) {
         var code = document.getElementById('example' + i + '_code'),
             html = document.getElementById('example' + i + '_html'),
             textNode;
