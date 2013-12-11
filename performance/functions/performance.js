@@ -12,7 +12,7 @@ var performance = {};
     function updateCall(update, results, complete) {
         var i,
             key,
-            time ,
+            time,
             testCase;
 
         for (key in results) {
@@ -22,7 +22,7 @@ var performance = {};
                 for (i = 0; i < testCase.length; i++) {
                     time += testCase[i];
                 }
-                testCase.avarage = time / testCase.length;
+                testCase.avarage = Math.round(time / testCase.length);
             }
         }
 
@@ -75,7 +75,7 @@ var performance = {};
                             if (complete) {
                                 document.body.removeChild(div);
                             }
-                        }, 250);
+                        }, 100 * j * (current + 1));
                     }());
 
                 }
