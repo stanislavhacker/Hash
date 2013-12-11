@@ -46,7 +46,7 @@ var performance = {};
 
         div = document.createElement("div");
         div.setAttribute("id", "tes231123161846848146");
-        div.setAttribute("style", "position: absolute; top: -1000px; left: -1000px;");
+        div.setAttribute("style", "position: absolute; top: -1000px; left: -1000px; height: 100px; overflow: hidden;");
         document.body.appendChild(div);
 
         for (key in functions) {
@@ -60,6 +60,7 @@ var performance = {};
                 results[key] = [];
                 for (j = 0; j < count; j++) {
 
+                    //noinspection JSHint,JSLint
                     (function () {
                         var k = key,
                             sample = j,
@@ -75,7 +76,7 @@ var performance = {};
                             if (complete) {
                                 document.body.removeChild(div);
                             }
-                        }, 100 * j * (current + 1));
+                        }, (current * (count * 50)) + (50 * j));
                     }());
 
                 }
@@ -83,6 +84,16 @@ var performance = {};
             }
         }
 
+    };
+
+    /**
+     * Update
+     * @param {string} id
+     * @param {object} data
+     */
+    performance.update = function (id, data) {
+        document.getElementById(id + "_count").innerHTML = data.length + "x";
+        document.getElementById(id + "_time").innerHTML = data.avarage;
     };
 
     /**

@@ -12,14 +12,17 @@
      * Examples 8
      */
     performance.vsjQuery.prototype.table = function () {
+        var button = document.getElementById("jQuery_testcase1_button");
         //bind click on button
-        document.getElementById("jQuery_testcase1_button").onclick = function () {
+        button.onclick = function () {
             var tests = {},
                 size = 20,
                 jQueryName = 'Create table with jQuery',
                 hashName = 'Create table with Hash',
                 jQuery,
                 hash;
+
+            button.setAttribute("disabled", "disabled");
 
             //jQuery
             jQuery = function (node) {
@@ -57,15 +60,12 @@
             };
             tests[hashName] = hash;
 
-            performance.run(tests, 20, function (results, complete) {
-                document.getElementById("vs_jQuery_testcase1_jQuery_count").innerHTML = results[jQueryName].length + "x";
-                document.getElementById("vs_jQuery_testcase1_Hash_count").innerHTML = results[hashName].length + "x";
-                document.getElementById("vs_jQuery_testcase1_jQuery_time").innerHTML = results[jQueryName].avarage;
-                document.getElementById("vs_jQuery_testcase1_Hash_time").innerHTML = results[hashName].avarage;
-
+            performance.run(tests, 40, function (results, complete) {
+                performance.update("vs_jQuery_testcase1_jQuery", results[jQueryName]);
+                performance.update("vs_jQuery_testcase1_Hash", results[hashName]);
 
                 if (complete) {
-
+                    button.removeAttribute("disabled");
                 }
             });
 
