@@ -91,7 +91,7 @@
          */
         hs.Element.prototype.attr = function (attr, value) {
             var el = this.attrs.attr(attr, value);
-            if (typeof value !== "undefined") {
+            if (value !== undefined) {
                 updateElement(el);
             }
             return el;

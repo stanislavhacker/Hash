@@ -19,7 +19,7 @@
      */
     hs.Css.prototype.css = function (cssOrObject, value) {
         var element = this.element,
-            css = element.attributes['style'] || {},
+            css = element.attributes.style || {},
             key;
 
         //update css
@@ -40,7 +40,7 @@
                 return css[cssOrObject];
             }
         }
-        element.attributes['style'] = css;
+        element.attributes.style = css;
         return element;
     };
 

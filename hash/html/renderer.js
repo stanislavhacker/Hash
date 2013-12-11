@@ -72,19 +72,19 @@
         for (key in attributes) {
             if (attributes.hasOwnProperty(key)) {
                 switch (key) {
-                    case 'class':
-                        html += ' ' + key + '="' + attributes[key].join(' ') + '"';
-                        break;
-                    case 'style':
-                        if (typeof attributes[key] === "string") {
-                            html += ' ' + key + '="' + attributes[key] + '"';
-                        } else {
-                            html += getCssHtml(attributes[key]);
-                        }
-                        break;
-                    default:
+                case 'class':
+                    html += ' ' + key + '="' + attributes[key].join(' ') + '"';
+                    break;
+                case 'style':
+                    if (typeof attributes[key] === "string") {
                         html += ' ' + key + '="' + attributes[key] + '"';
-                        break;
+                    } else {
+                        html += getCssHtml(attributes[key]);
+                    }
+                    break;
+                default:
+                    html += ' ' + key + '="' + attributes[key] + '"';
+                    break;
                 }
             }
         }

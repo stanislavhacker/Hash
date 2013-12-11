@@ -20,7 +20,7 @@
     hs.Attr.prototype.attr = function (attr, value) {
         var element = this.element;
 
-        if (typeof value === "undefined") {
+        if (value === undefined) {
             return element.attributes[attr];
         }
 

@@ -18,8 +18,8 @@
             events[type][ev[1]] = events[type][namespace] || [];
             return events[type][ev[1]];
         }
-        events[type]['_'] = events[type]['_'] || [];
-        return events[type]['_'];
+        events[type].global = events[type].global || [];
+        return events[type].global;
     }
 
     /**

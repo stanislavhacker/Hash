@@ -4,6 +4,7 @@ var hs;
 
     var storage = {};
 
+    //noinspection JSLint
     /**
      * Create new element
      * @param {string} element
