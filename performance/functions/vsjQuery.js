@@ -9,9 +9,9 @@
     performance.vsjQuery = function () {};
 
     /**
-     * Examples 8
+     * Table 20x20
      */
-    performance.vsjQuery.prototype.table = function () {
+    performance.vsjQuery.prototype.table2020 = function () {
         var button = document.getElementById("jQuery_testcase1_button");
         //bind click on button
         button.onclick = function () {
@@ -63,6 +63,70 @@
             performance.run(tests, 40, function (results, complete) {
                 performance.update("vs_jQuery_testcase1_jQuery", results[jQueryName]);
                 performance.update("vs_jQuery_testcase1_Hash", results[hashName]);
+
+                if (complete) {
+                    button.removeAttribute("disabled");
+                }
+            });
+
+        };
+    };
+
+    /**
+     * Table 100x100
+     */
+    performance.vsjQuery.prototype.table100100 = function () {
+        var button = document.getElementById("jQuery_testcase2_button");
+        //bind click on button
+        button.onclick = function () {
+            var tests = {},
+                size = 100,
+                jQueryName = 'Create table with jQuery',
+                hashName = 'Create table with Hash',
+                jQuery,
+                hash;
+
+            button.setAttribute("disabled", "disabled");
+
+            //jQuery
+            jQuery = function (node) {
+                var parent = $(node),
+                    table,
+                    tr,
+                    j,
+                    i;
+
+                table = $('<table></table>').appendTo(parent);
+                for (i = 0; i < size; i++) {
+                    tr = $('<tr></tr>').appendTo(table);
+                    for (j = 0; j < size; j++) {
+                        $('<td></td>').appendTo(tr);
+                    }
+                }
+            };
+            tests[jQueryName] = jQuery;
+
+            //hash
+            hash = function (node) {
+                var table,
+                    tr,
+                    j,
+                    i;
+
+                table = hs('table');
+                for (i = 0; i < size; i++) {
+                    tr = hs('tr').appendTo(table);
+                    for (j = 0; j < size; j++) {
+                        hs('td').appendTo(tr);
+                    }
+                }
+                table.render(node.getAttribute("id"));
+            };
+            tests[hashName] = hash;
+
+            performance.run(tests, 40, function (results, complete) {
+                performance.update("vs_jQuery_testcase2_jQuery", results[jQueryName]);
+                performance.update("vs_jQuery_testcase2_Hash", results[hashName]);
 
                 if (complete) {
                     button.removeAttribute("disabled");

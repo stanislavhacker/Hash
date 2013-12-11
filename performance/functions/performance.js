@@ -102,7 +102,8 @@ var performance = {};
     performance.init = function () {
         var jQuery = new performance.vsjQuery();
 
-        jQuery.table();
+        jQuery.table2020();
+        jQuery.table100100();
     };
 
     /**
