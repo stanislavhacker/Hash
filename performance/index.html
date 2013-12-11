@@ -1,0 +1,127 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Performance page for usage # framework</title>
+
+    <!-- # Framework -->
+    <script type="application/javascript" src="../hash/hash.js"></script>
+    <script type="application/javascript" src="../hash/html/css.js"></script>
+    <script type="application/javascript" src="../hash/html/class.js"></script>
+    <script type="application/javascript" src="../hash/html/events.js"></script>
+    <script type="application/javascript" src="../hash/html/text.js"></script>
+    <script type="application/javascript" src="../hash/html/dom.js"></script>
+    <script type="application/javascript" src="../hash/html/attr.js"></script>
+    <script type="application/javascript" src="../hash/html/renderer.js"></script>
+    <script type="application/javascript" src="../hash/html/element.js"></script>
+    <script type="application/javascript" src="../hash/controls/table.js"></script>
+
+    <!-- Js Highlighter -->
+    <link rel="stylesheet" href="../examples/data/highlighter/styles/github.css">
+    <script src="../examples/data/highlighter/highlight.pack.js"></script>
+
+    <!-- Others -->
+    <script src="data/jquery-1.10.2.min.js"></script>
+
+    <!-- Performance -->
+    <script src="functions/performance.js"></script>
+    <script src="functions/vsjQuery.js"></script>
+
+    <link rel="stylesheet" href="../examples/data/css.css" />
+</head>
+<body>
+
+
+<!-- Nav Bar -->
+<div class="row">
+    <div class="large-12 columns">
+        <div class="nav-bar right">
+            <ul class="button-group">
+                <li><a href="#vsjQuery" class="button"># vs jQuery</a></li>
+            </ul>
+        </div>
+        <h1># <small>Performance on first way</small></h1>
+        <hr />
+    </div>
+</div>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+
+    <article>
+
+        <h3><a name="vsjQuery" href="#"># vs jQuery</a></h3>
+
+        <p>
+            Comparison with jQuery framework
+        </p>
+
+    </article>
+
+    <hr />
+
+    <article>
+
+        <h5><a name="vs_jQuery_testcase1" href="#">Generating table</a></h5>
+        <div>
+            <p>
+                Performance test for generating table 20x20 in jQuery and hash. You can run in with
+                button below and check results.
+                <h6>jQuery average time: <span id="vs_jQuery_testcase1_jQuery_time">0</span>ms (<span id="vs_jQuery_testcase1_jQuery_count">0x</span>)</h6>
+                <h6>Hash average time: <span id="vs_jQuery_testcase1_Hash_time">0</span>ms (<span id="vs_jQuery_testcase1_Hash_count">0x</span>)</h6>
+            </p>
+
+            <button id="jQuery_testcase1_button" type="button">Run test</button>
+        </div>
+
+    </article>
+
+    </div>
+    <!-- End Main Content -->
+
+<!-- Sidebar -->
+<aside class="large-3 columns">
+
+    <h5>All examples</h5>
+    <ul class="side-nav">
+        <li><a href="#vs_jQuery_testcase1">Generating table</a></li>
+    </ul>
+
+    <div class="panel">
+        <h5>Summary</h5>
+
+        <br />
+    </div>
+
+</aside>
+<!-- End Sidebar -->
+
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>&copy; Stanislav Hacker 2013 | <a href="mailto:hacker.stanislav@gmail.com">hacker.stanislav@gmail.com</a></p>
+            </div>
+            <div class="large-6 columns">
+                <ul class="inline-list right">
+                    <li><a href="#vsjQuery"># vs jQuery</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
