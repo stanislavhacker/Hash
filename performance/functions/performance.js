@@ -110,7 +110,7 @@ var performance = {};
      */
     performance.update = function (id, data) {
         document.getElementById(id + "_count").innerHTML = data.length + "x";
-        document.getElementById(id + "_time").innerHTML = !Number.isNaN(data.avarage) ? data.avarage + "ms" : "not run yet";
+        document.getElementById(id + "_time").innerHTML = !isNaN(data.avarage) ? data.avarage + "ms" : "not run yet";
     };
 
     /**
