@@ -5,7 +5,6 @@
     <option camelcase="false" />
     <option curly="true" />
     <option eqeqeq="true" />
-    <option es3="false" />
     <option forin="true" />
     <option immed="false" />
     <option latedef="false" />

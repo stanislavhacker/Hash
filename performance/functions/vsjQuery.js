@@ -136,4 +136,122 @@
         };
     };
 
+    /**
+     * Class manipulation
+     */
+    performance.vsjQuery.prototype.classManipulation = function () {
+        var button = document.getElementById("jQuery_testcase3_button");
+        //bind click on button
+        button.onclick = function () {
+            var tests = {},
+                jQueryName = 'Class manipulation with jQuery',
+                hashName = 'Class manipulation with Hash',
+                jQuery,
+                hash;
+
+            button.setAttribute("disabled", "disabled");
+
+            //jQuery
+            jQuery = function (node) {
+                var parent = $(node),
+                    div;
+
+                div = $('<div></div>').appendTo(parent);
+                div.addClass('test1');
+                div.addClass('test2');
+                div.addClass('test3');
+                div.addClass('test4');
+                div.addClass('test5');
+
+                div.removeClass('test2');
+                div.removeClass('test3');
+                div.removeClass('test4');
+                div.removeClass('test5');
+            };
+            tests[jQueryName] = jQuery;
+
+            //hash
+            hash = function (node) {
+                var div;
+
+                div = hs('div');
+                div.addClass('test1');
+                div.addClass('test2');
+                div.addClass('test3');
+                div.addClass('test4');
+                div.addClass('test5');
+
+                div.removeClass('test2');
+                div.removeClass('test3');
+                div.removeClass('test4');
+                div.removeClass('test5');
+                div.render(node.getAttribute("id"));
+            };
+            tests[hashName] = hash;
+
+            performance.run(tests, 100, function (results, complete) {
+                performance.update("vs_jQuery_testcase3_jQuery", results[jQueryName]);
+                performance.update("vs_jQuery_testcase3_Hash", results[hashName]);
+
+                if (complete) {
+                    button.removeAttribute("disabled");
+                }
+            });
+
+        };
+    };
+
+    /**
+     * Div generator
+     */
+    performance.vsjQuery.prototype.div1000 = function () {
+        var button = document.getElementById("jQuery_testcase4_button");
+        //bind click on button
+        button.onclick = function () {
+            var tests = {},
+                jQueryName = 'Generate divs with jQuery',
+                hashName = 'Generate divs with Hash',
+                jQuery,
+                size = 1000,
+                hash;
+
+            button.setAttribute("disabled", "disabled");
+
+            //jQuery
+            jQuery = function (node) {
+                var parent = $(node),
+                    div,
+                    i;
+
+                for (i = 0; i < size; i++) {
+                    $('<div></div>').appendTo(parent);
+                }
+            };
+            tests[jQueryName] = jQuery;
+
+            //hash
+            hash = function (node) {
+                var div,
+                    html = "",
+                    i;
+
+                for (i = 0; i < size; i++) {
+                    html += hs('div').html();
+                }
+                node.innerHtml = html;
+            };
+            tests[hashName] = hash;
+
+            performance.run(tests, 100, function (results, complete) {
+                performance.update("vs_jQuery_testcase4_jQuery", results[jQueryName]);
+                performance.update("vs_jQuery_testcase4_Hash", results[hashName]);
+
+                if (complete) {
+                    button.removeAttribute("disabled");
+                }
+            });
+
+        };
+    };
+
 }());

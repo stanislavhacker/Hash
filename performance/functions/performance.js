@@ -22,7 +22,7 @@ var performance = {};
                 for (i = 0; i < testCase.length; i++) {
                     time += testCase[i];
                 }
-                testCase.avarage = Math.round(time / testCase.length);
+                testCase.avarage = Math.round((time / testCase.length) * 100) / 100;
             }
         }
 
@@ -39,6 +39,7 @@ var performance = {};
         var current = 0,
             results = {},
             max = -1,
+            runArray = [],
             start,
             key,
             div,
@@ -49,24 +50,25 @@ var performance = {};
         div.setAttribute("style", "position: absolute; top: -1000px; left: -1000px; height: 100px; overflow: hidden;");
         document.body.appendChild(div);
 
+        //check max
         for (key in functions) {
             if (functions.hasOwnProperty(key)) {
                 max++;
             }
         }
 
+        //make array of runs
         for (key in functions) {
             if (functions.hasOwnProperty(key)) {
                 results[key] = [];
                 for (j = 0; j < count; j++) {
-
                     //noinspection JSHint,JSLint
                     (function () {
                         var k = key,
                             sample = j,
                             complete = max === current && count - 1 === sample;
 
-                        window.setTimeout(function () {
+                        runArray.push(function () {
                             start = new Date().getTime();
                             functions[k](div);
                             results[k][sample] = new Date().getTime() - start;
@@ -76,14 +78,29 @@ var performance = {};
                             if (complete) {
                                 document.body.removeChild(div);
                             }
-                        }, (current * (count * 50)) + (50 * j));
+                        });
                     }());
-
                 }
                 current++;
             }
         }
 
+        performance.single(runArray);
+
+    };
+
+    /**
+     * Run functions
+     * @param {Array.<function>} functions
+     */
+    performance.single = function (functions) {
+        var first = functions.shift();
+        window.setTimeout(function () {
+            first();
+            if (functions.length > 0) {
+                performance.single(functions);
+            }
+        }, 5);
     };
 
     /**
@@ -93,7 +110,7 @@ var performance = {};
      */
     performance.update = function (id, data) {
         document.getElementById(id + "_count").innerHTML = data.length + "x";
-        document.getElementById(id + "_time").innerHTML = data.avarage;
+        document.getElementById(id + "_time").innerHTML = !Number.isNaN(data.avarage) ? data.avarage + "ms" : "not run yet";
     };
 
     /**
@@ -104,6 +121,8 @@ var performance = {};
 
         jQuery.table2020();
         jQuery.table100100();
+        jQuery.classManipulation();
+        jQuery.div1000();
     };
 
     /**
