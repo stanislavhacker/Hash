@@ -7,17 +7,21 @@
      * @param {hs.Element} element
      */
     function updateElement(element) {
-        var self = document.getElementById(element.attr('id')),
-            newNode,
-            parent;
+        var newNode,
+            parent,
+            self;
 
-        if (element.isUpdatable && self) {
-            parent = self.parentNode;
+        if (element.isUpdatable) {
+            self = document.getElementById(element.attr('id'));
 
-            newNode = document.createElement('div');
-            newNode.innerHTML = element.html();
+            if (self) {
+                parent = self.parentNode;
 
-            parent.replaceChild(newNode.childNodes[0], self);
+                newNode = document.createElement('div');
+                newNode.innerHTML = element.html();
+
+                parent.replaceChild(newNode.childNodes[0], self);
+            }
         }
     }
 

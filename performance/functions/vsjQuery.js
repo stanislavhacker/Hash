@@ -124,7 +124,7 @@
             };
             tests[hashName] = hash;
 
-            performance.run(tests, 40, function (results, complete) {
+            performance.run(tests, 15, function (results, complete) {
                 performance.update("vs_jQuery_testcase2_jQuery", results[jQueryName]);
                 performance.update("vs_jQuery_testcase2_Hash", results[hashName]);
 

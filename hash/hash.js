@@ -2,7 +2,8 @@ var hs;
 (function () {
     "use strict";
 
-    var storage = {};
+    var storage = {},
+        uniqueIdCounter = 0;
 
     //noinspection JSLint
     /**
@@ -19,11 +20,10 @@ var hs;
      * @returns {string}
      */
     hs.getUniqueId = function () {
-        var s4 = function () {
-            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-        };
+        var id = "$hs_" + uniqueIdCounter;
 
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+        uniqueIdCounter++;
+        return id;
     };
 
     /**
@@ -32,8 +32,12 @@ var hs;
      * @returns {object}
      */
     hs.storage = function (uid) {
-        var st = storage[uid] || {};
-        storage[uid] = st;
+        var exists = storage[uid],
+            st = exists || {};
+
+        if (!exists) {
+            storage[uid] = st;
+        }
         return st;
     };
 
