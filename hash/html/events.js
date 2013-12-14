@@ -56,7 +56,7 @@
      */
     hs.Events.prototype.bind = function (event, callback) {
         var element = this.element,
-            storage = getEventStorage(element.storage, event);
+            storage = getEventStorage(element.getStorage(), event);
         storage.push(callback);
         return element;
     };
@@ -68,7 +68,7 @@
      */
     hs.Events.prototype.unbind = function (event) {
         var element = this.element;
-        clearEventStorage(element.storage, event);
+        clearEventStorage(element.getStorage(), event);
         return element;
     };
 

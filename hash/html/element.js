@@ -41,7 +41,7 @@
         /** @type {string}*/
         this.id = hs.getUniqueId();
         /** @type {Object}*/
-        this.storage = hs.storage(this.id);
+        this.storage = null;
 
         /** @type {boolean}*/
         this.isUpdatable = false;
@@ -58,6 +58,24 @@
         this.attrs = new hs.Attr(this);
         this.renderer = new hs.Renderer(this);
     };
+
+    /**
+     * Utils functions
+     */
+    (function () {
+
+        /**
+         * Get storage
+         * @returns {object}
+         */
+        hs.Element.prototype.getStorage = function () {
+            if (!this.storage) {
+                this.storage = hs.storage(this.id);
+            }
+            return this.storage;
+        };
+
+    }());
 
     /**
      * Render operations

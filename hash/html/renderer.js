@@ -132,17 +132,28 @@
      */
     hs.Renderer.prototype.html = function (isUpdatable) {
         var element = this.element,
-            innerHtml,
-            events,
-            attr;
+            innerHtml = "",
+            events = "",
+            attr = "";
 
         if (isUpdatable) {
             markAsUpdatable(element);
         }
 
-        innerHtml = getInnerHtml(element.children, isUpdatable);
-        attr = getAttributesHtml(element.attributes);
-        events = getEventsHtml(element.storage, element.id);
+        //inner html
+        if (element.children.length > 0) {
+            innerHtml = getInnerHtml(element.children, isUpdatable);
+        }
+
+        //read attributes
+        if (element.attributes) {
+            attr = getAttributesHtml(element.attributes);
+        }
+
+        //get events from storage
+        if (element.storage) {
+            events = getEventsHtml(element.getStorage(), element.id);
+        }
 
         return '<' + element.element + attr + events + '>' + innerHtml + '</' + element.element + '>';
     };

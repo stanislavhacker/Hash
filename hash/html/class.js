@@ -7,10 +7,13 @@
      * @param {hs.Element} element
      */
     function updateElementClass(element) {
-        var self = document.getElementById(element.attr('id'));
+        var self;
 
         if (element.isUpdatable && self) {
-            self.className = element.attributes['class'];
+            self = document.getElementById(element.attr('id'));
+            if (self) {
+                self.className = element.attributes['class'];
+            }
         }
     }
 
@@ -22,13 +25,13 @@
      */
     function manageClassesInElement(attributes, value, state) {
         var classes  = attributes['class'] || [],
-            splitted = value.split(' '),
+            splited = value.split(' '),
             clazz,
             index,
             i;
 
-        for (i = 0; i < splitted.length; i++) {
-            clazz = splitted[i];
+        for (i = 0; i < splited.length; i++) {
+            clazz = splited[i];
             if (classes.indexOf(clazz) === -1 && state) {
                 classes.push(clazz);
             }
