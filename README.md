@@ -8,3 +8,7 @@ that is already generated, but it is possible.
 Examples
 ----
 There is simple example page for Hash framework: https://rawgithub.com/stanislavhacker/Hash/master/examples/index.html
+
+Performance
+----
+Check comparision with other libraries: https://rawgithub.com/stanislavhacker/Hash/master/performance/index.html
